@@ -7,7 +7,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#ifdef _MSC_VER
+#include "mman.h"
+#else
 #include <sys/mman.h>
+#endif
 #include <pthread.h>
 #if USE_UCHARDET
 #include <uchardet/uchardet.h>

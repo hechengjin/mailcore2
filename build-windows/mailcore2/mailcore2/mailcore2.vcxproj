@@ -27,6 +27,7 @@
     <ClInclude Include="..\..\..\src\async\imap\MCIMAPCheckAccountOperation.h" />
     <ClInclude Include="..\..\..\src\async\imap\MCIMAPConnectOperation.h" />
     <ClInclude Include="..\..\..\src\async\imap\MCIMAPCopyMessagesOperation.h" />
+    <ClInclude Include="..\..\..\src\async\imap\MCIMAPCustomCommandOperation.h" />
     <ClInclude Include="..\..\..\src\async\imap\MCIMAPMoveMessagesOperation.h" />
     <ClInclude Include="..\..\..\src\async\imap\MCIMAPCreateFolderOperation.h" />
     <ClInclude Include="..\..\..\src\async\imap\MCIMAPDeleteFolderOperation.h" />
@@ -133,6 +134,7 @@
     <ClInclude Include="..\..\..\src\core\basetypes\MCValue.h" />
     <ClInclude Include="..\..\..\src\core\basetypes\MCValuePrivate.h" />
     <ClInclude Include="..\..\..\src\core\basetypes\MCWin32.h" />
+    <ClInclude Include="..\..\..\src\core\basetypes\mman.h" />
     <ClInclude Include="..\..\..\src\core\imap\MCIMAP.h" />
     <ClInclude Include="..\..\..\src\core\imap\MCIMAPFolder.h" />
     <ClInclude Include="..\..\..\src\core\imap\MCIMAPFolderStatus.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="..\..\..\src\async\imap\MCIMAPCheckAccountOperation.cpp" />
     <ClCompile Include="..\..\..\src\async\imap\MCIMAPConnectOperation.cpp" />
     <ClCompile Include="..\..\..\src\async\imap\MCIMAPCopyMessagesOperation.cpp" />
+    <ClCompile Include="..\..\..\src\async\imap\MCIMAPCustomCommandOperation.cpp" />
     <ClCompile Include="..\..\..\src\async\imap\MCIMAPMoveMessagesOperation.cpp" />
     <ClCompile Include="..\..\..\src\async\imap\MCIMAPCreateFolderOperation.cpp" />
     <ClCompile Include="..\..\..\src\async\imap\MCIMAPDeleteFolderOperation.cpp" />
@@ -281,6 +284,7 @@
     <ClCompile Include="..\..\..\src\core\basetypes\MCStringWin32.cpp" />
     <ClCompile Include="..\..\..\src\core\basetypes\MCValue.cpp" />
     <ClCompile Include="..\..\..\src\core\basetypes\MCWin32.cpp" />
+    <ClCompile Include="..\..\..\src\core\basetypes\mman.c" />
     <ClCompile Include="..\..\..\src\core\imap\MCIMAPFolder.cpp" />
     <ClCompile Include="..\..\..\src\core\imap\MCIMAPFolderStatus.cpp" />
     <ClCompile Include="..\..\..\src\core\imap\MCIMAPIdentity.cpp" />

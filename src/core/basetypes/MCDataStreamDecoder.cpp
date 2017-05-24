@@ -93,7 +93,7 @@ ErrorCode DataStreamDecoder::appendDecodedData(Data * decodedData)
     }
 
     if (mFile == NULL) {
-        mFile = fopen(mFilename->fileSystemRepresentation(), "wb");
+		fopen_s(&mFile, mFilename->fileSystemRepresentation(), "wb");
 
         if (mFile == NULL) {
             return ErrorFile;
