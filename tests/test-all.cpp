@@ -19,8 +19,12 @@
 #include <Windows.h>
 #endif
 
-#include <unistd.h>
 
+#ifdef _MSC_VER
+#include "unistd.h"
+#else
+#include <unistd.h>
+#endif
 static mailcore::String * password = NULL;
 static mailcore::String * displayName = NULL;
 static mailcore::String * email = NULL;
