@@ -2357,6 +2357,7 @@ String * String::stringByDeletingPathExtension()
     return substringToIndex(location);
 }
 
+#ifdef _MSC_VER
 const void *
 memmem(const void *l, size_t l_len, const void *s, size_t s_len)
 {
@@ -2385,6 +2386,7 @@ memmem(const void *l, size_t l_len, const void *s, size_t s_len)
 
 	return NULL;
 }
+#endif
 
 Array * String::componentsSeparatedByString(String * separator)
 {
