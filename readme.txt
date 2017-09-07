@@ -12,11 +12,13 @@ cd libetpan
 ./autogen.sh
 make >/dev/null
 sudo make install prefix=/usr >/dev/null
+
+
 Compile MailCore 2:
 cd ~/mailcore2
 mkdir build
 cd build
-cmake ..
+cmake ..    //CMakeLists.txt文件转成特定平台下的建构档 Cmake 并不直接建构出最终的软件，而是产生标准的建构档（如 Unix 的 Makefile 或 Windows Visual C++ 的 projects/workspaces）
 make
 
 

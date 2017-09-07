@@ -1,6 +1,11 @@
 cmake_minimum_required (VERSION 2.6)
 project (mailcore2) 
 
+SET(CMAKE_BUILD_TYPE "Debug")  
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")  
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")  
+
+
 IF(APPLE)
   set(CMAKE_CXX__FLAGS "-std=c++11 -stdlib=libc++")
   set(CMAKE_EXE_LINKER_FLAGS "-lc++ -stdlib=libc++")
