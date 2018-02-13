@@ -980,4 +980,7 @@
       <Filter>Source Files\core\rfc822</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
 </Project>

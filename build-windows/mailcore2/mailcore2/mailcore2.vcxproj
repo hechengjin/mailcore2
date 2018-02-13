@@ -327,6 +327,9 @@
   <ItemGroup>
     <None Include="..\..\..\src\core\rfc822\MCMessageParserMac.mm" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AAD35E01-77E4-43CB-BBB4-F7F6692EA829}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

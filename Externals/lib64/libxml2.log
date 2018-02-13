@@ -1,0 +1,10 @@
+﻿Build started 2014-11-22 09:26:36.
+     1>Project "C:\Users\morgan\Documents\GitHub\libxml2\win32\VC10\libxml2.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (runsuite.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>Link:
+         libxml2.vcxproj -> C:\Users\morgan\Documents\GitHub\libxml2\win32\VC10\x64\Release\libxml2.dll
+     1>Done Building Project "C:\Users\morgan\Documents\GitHub\libxml2\win32\VC10\libxml2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.14
