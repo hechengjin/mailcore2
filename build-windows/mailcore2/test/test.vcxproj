@@ -93,6 +93,14 @@
       <AdditionalDependencies>libetpan.lib;mailcore2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\Externals\lib;..\..\..\Externals\lib\x86;$(TargetDir)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /r /y ..\..\..\Externals\lib\libtidy.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib\libxml2.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib\LIBCTEMPLATE.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib\LIBETPAN.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\bin\LIBEAY32MD.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\dll\x86\PTHREADVC2.DLL $(OutDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -109,6 +117,14 @@
       <AdditionalDependencies>libetpan.lib;mailcore2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\Externals\lib64;..\..\..\Externals\lib\x64;$(TargetDir)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /r /y ..\..\..\Externals\lib64\libtidy.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib64\libxml2.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib64\LIBCTEMPLATE.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib64\LIBETPAN.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\bin64\LIBEAY32MD.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\dll\x64\PTHREADVC2.DLL $(OutDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -129,6 +145,14 @@
       <AdditionalDependencies>libetpan.lib;mailcore2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\Externals\lib;..\..\..\Externals\lib\x86;$(TargetDir)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /r /y ..\..\..\Externals\lib\libtidy.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib\libxml2.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib\LIBCTEMPLATE.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib\LIBETPAN.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\bin\LIBEAY32MD.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\dll\x86\PTHREADVC2.DLL $(OutDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -149,6 +173,14 @@
       <AdditionalDependencies>libetpan.lib;mailcore2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\..\Externals\lib64;..\..\..\Externals\lib\x64;$(TargetDir)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /e /r /y ..\..\..\Externals\lib64\libtidy.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib64\libxml2.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib64\LIBCTEMPLATE.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib64\LIBETPAN.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\bin64\LIBEAY32MD.DLL $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\dll\x64\PTHREADVC2.DLL $(OutDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
