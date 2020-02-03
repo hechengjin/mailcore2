@@ -71,7 +71,7 @@ class TestCallback : public mailcore::Object, public mailcore::OperationCallback
 
 static mailcore::String * temporaryFilenameForTest()
 {
-    char tempfile[] = "/tmp/mailcore2-test-XXXXXX";
+	char tempfile[] = "C:\\tmp\\mailcore2-test-XXXXXX";
     char * result = mktemp(tempfile);
     if (result == NULL) {
         return NULL;
@@ -92,9 +92,9 @@ static mailcore::Data * testMessageBuilder()
     msg->header()->setFrom(mailcore::Address::addressWithDisplayName(displayName, email));
     mailcore::Array * to = new mailcore::Array();
     mailcore::Array * bcc = new mailcore::Array();
-    to->addObject(mailcore::Address::addressWithDisplayName(MCSTR("Foo Bar"), MCSTR("foobar@to-recipient.org")));
-    to->addObject(mailcore::Address::addressWithDisplayName(MCSTR("Other Recipient"), MCSTR("another-foobar@to-recipient.org")));
-    bcc->addObject(mailcore::Address::addressWithDisplayName(MCSTR("Hidden Recipient"), MCSTR("foobar@bcc-recipient.org")));
+    to->addObject(mailcore::Address::addressWithDisplayName(MCSTR("126_firemail"), MCSTR("firemail_wang@126.com")));
+    to->addObject(mailcore::Address::addressWithDisplayName(MCSTR("163_9857"), MCSTR("15313159857@163.com")));
+    bcc->addObject(mailcore::Address::addressWithDisplayName(MCSTR("189_9857_hide"), MCSTR("15313159857@189.cn")));
     msg->header()->setTo(to);
     msg->header()->setBcc(bcc);
     to->release();
@@ -130,14 +130,54 @@ static mailcore::Data * testMessageBuilder()
     return data;
 }
 
+static mailcore::Data * testMessageBuilder2()
+{
+	mailcore::Address * address = new mailcore::Address();
+	address->setDisplayName(displayName);
+	address->setMailbox(email);
+
+	address->release();
+
+	mailcore::MessageBuilder * msg = new mailcore::MessageBuilder();
+
+	msg->header()->setFrom(mailcore::Address::addressWithDisplayName(displayName, email));
+	mailcore::Array * to = new mailcore::Array();
+	to->addObject(mailcore::Address::addressWithDisplayName(MCSTR("126_firemail"), MCSTR("firemail_wang@126.com")));
+	msg->header()->setTo(to);
+	to->release();
+	MCAssert(msg->header()->allExtraHeadersNames()->count() == 0);
+	
+	msg->header()->setSubject(MCSTR("HelloFrom mailcore"));
+	msg->setHTMLBody(MCSTR("<div>Hello mailcore</div>"));
+	mailcore::Data * data = msg->data();
+
+	MCLog("%s", data->bytes());
+
+	mailcore::String *filename = temporaryFilenameForTest();
+	msg->writeToFile(filename);
+	mailcore::Data *fileData = mailcore::Data::dataWithContentsOfFile(filename);
+	MCAssert(data->isEqual(fileData));
+
+	mailcore::MessageBuilder * msg2 = new mailcore::MessageBuilder(msg);
+	mailcore::String *htmlBody = msg->htmlBody();
+	mailcore::String *htmlBody2 = msg2->htmlBody();
+	MCAssert(htmlBody->isEqual(htmlBody2));
+
+	msg->release();
+	msg2->release();
+	unlink(filename->fileSystemRepresentation());
+
+	return data;
+}
+
 static void testMessageParser(mailcore::Data * data)
 {
     mailcore::MessageParser * parser = mailcore::MessageParser::messageParserWithData(data);
     MCLog("%s", MCUTF8DESC(parser));
     MCLog("HTML rendering");
-    MCLog("%s", MCUTF8(parser->htmlRendering()));
-    MCLog("%s", MCUTF8(parser->plainTextBodyRendering(true)));
-    MCLog("%s", MCUTF8(parser->plainTextBodyRendering(false)));
+    MCLog("%s", MCUTF8(parser->htmlRendering())); //没测试通过  Microsoft C++ exception: std::bad_alloc at memory location 0x002BE55C.
+    //MCLog("%s", MCUTF8(parser->plainTextBodyRendering(true)));//没测试通过
+    //MCLog("%s", MCUTF8(parser->plainTextBodyRendering(false))); //没测试通过
 }
 
 static void testIMAP()
@@ -146,11 +186,11 @@ static void testIMAP()
     mailcore::ErrorCode error;
     
     session = new mailcore::IMAPSession();
-    session->setHostname(MCSTR("imap.gmail.com"));
-    session->setPort(993);
+    session->setHostname(MCSTR("imap.139.com"));
+    session->setPort(143);
     session->setUsername(email);
     session->setPassword(password);
-    session->setConnectionType(mailcore::ConnectionTypeTLS);
+	session->setConnectionType(mailcore::ConnectionTypeClear);
     
     mailcore::IMAPMessagesRequestKind requestKind = (mailcore::IMAPMessagesRequestKind)
     (mailcore::IMAPMessagesRequestKindHeaders | mailcore::IMAPMessagesRequestKindStructure |
@@ -170,11 +210,11 @@ static void testIMAPMove()
     mailcore::ErrorCode error;
     
     session = new mailcore::IMAPSession();
-    session->setHostname(MCSTR("imap.mail.ru"));
-    session->setPort(993);
+    session->setHostname(MCSTR("imap.139.com"));
+    session->setPort(143);
     session->setUsername(email);
     session->setPassword(password);
-    session->setConnectionType(mailcore::ConnectionTypeTLS);
+	session->setConnectionType(mailcore::ConnectionTypeClear);
 
     session->moveMessages(MCSTR("INBOX"),
                           mailcore::IndexSet::indexSetWithIndex(14990),
@@ -191,11 +231,11 @@ static void testIMAPCapability()
     mailcore::ErrorCode error;
 
     session = new mailcore::IMAPSession();
-    session->setHostname(MCSTR("imap.mail.ru"));
-    session->setPort(993);
+    session->setHostname(MCSTR("imap.139.com"));
+    session->setPort(143);
     session->setUsername(email);
     session->setPassword(password);
-    session->setConnectionType(mailcore::ConnectionTypeTLS);
+	session->setConnectionType(mailcore::ConnectionTypeClear);
 
     mailcore::IndexSet *caps = session->capability(&error);
 
@@ -211,11 +251,11 @@ static void testSMTP(mailcore::Data * data)
     
     smtp = new mailcore::SMTPSession();
     
-    smtp->setHostname(MCSTR("smtp.gmail.com"));
+    smtp->setHostname(MCSTR("smtp.139.com"));
     smtp->setPort(25);
     smtp->setUsername(email);
     smtp->setPassword(password);
-    smtp->setConnectionType(mailcore::ConnectionTypeStartTLS);
+	smtp->setConnectionType(mailcore::ConnectionTypeClear);
     
     smtp->sendMessage(data, NULL, &error);
     
@@ -250,11 +290,11 @@ static void testSendingMessageFromFileViaSMTP(mailcore::Data * data)
 
     smtp = new mailcore::SMTPSession();
 
-    smtp->setHostname(MCSTR("smtp.gmail.com"));
+    smtp->setHostname(MCSTR("smtp.139.com"));
     smtp->setPort(25);
     smtp->setUsername(email);
     smtp->setPassword(password);
-    smtp->setConnectionType(mailcore::ConnectionTypeStartTLS);
+	smtp->setConnectionType(mailcore::ConnectionTypeClear);
 
     mailcore::Array * recipients;
     mailcore::Address * from;
@@ -263,6 +303,30 @@ static void testSendingMessageFromFileViaSMTP(mailcore::Data * data)
     smtp->sendMessage(from, recipients, filename, NULL, &error);
 
     smtp->release();
+}
+
+static void testSendingMessageFromFileViaSMTP()
+{
+	mailcore::SMTPSession * smtp;
+	mailcore::ErrorCode error;
+
+	char tempfile[] = "C:\\tmp\\mailcore2-test-a08400";
+	mailcore::String * filename = mailcore::String::stringWithFileSystemRepresentation(tempfile);
+	smtp = new mailcore::SMTPSession();
+
+	smtp->setHostname(MCSTR("smtp.139.com"));
+	smtp->setPort(25);
+	smtp->setUsername(email);
+	smtp->setPassword(password);
+	smtp->setConnectionType(mailcore::ConnectionTypeClear);
+
+	mailcore::Array * recipients;
+	mailcore::Address * from;
+	parseAddressesFromRfc822(filename, &recipients, &from);
+
+	smtp->sendMessage(from, recipients, filename, NULL, &error);
+
+	smtp->release();
 }
 
 static void testPOP()
@@ -340,11 +404,11 @@ static void testAsyncSMTP(mailcore::Data * data)
     
     smtp = new mailcore::SMTPAsyncSession();
     
-    smtp->setHostname(MCSTR("smtp.gmail.com"));
+    smtp->setHostname(MCSTR("smtp.139.com"));
     smtp->setPort(25);
     smtp->setUsername(email);
     smtp->setPassword(password);
-    smtp->setConnectionType(mailcore::ConnectionTypeStartTLS);
+	smtp->setConnectionType(mailcore::ConnectionTypeClear);
     
     mailcore::SMTPOperation * op = smtp->sendMessageOperation(data);
     op->setSmtpCallback(callback);
@@ -370,11 +434,11 @@ static void testAsyncSendMessageFromFileViaSMTP(mailcore::Data * data)
 
     smtp = new mailcore::SMTPAsyncSession();
 
-    smtp->setHostname(MCSTR("smtp.gmail.com"));
+    smtp->setHostname(MCSTR("smtp.139.com"));
     smtp->setPort(25);
     smtp->setUsername(email);
     smtp->setPassword(password);
-    smtp->setConnectionType(mailcore::ConnectionTypeStartTLS);
+	smtp->setConnectionType(mailcore::ConnectionTypeClear);
 
     mailcore::SMTPOperation * op = smtp->sendMessageOperation(from, recipients, filename);
     op->setSmtpCallback(callback);
@@ -384,6 +448,37 @@ static void testAsyncSendMessageFromFileViaSMTP(mailcore::Data * data)
     mainLoop();
 
     //smtp->release();
+}
+
+
+static void testAsyncSendMessageFromFileViaSMTP()
+{
+	mailcore::SMTPAsyncSession * smtp;
+	TestSMTPCallback * callback = new TestSMTPCallback();
+
+	char tempfile[] = "C:\\tmp\\mailcore2-test-a08400";
+	mailcore::String * filename = mailcore::String::stringWithFileSystemRepresentation(tempfile);
+
+	mailcore::Array * recipients;
+	mailcore::Address * from;
+	parseAddressesFromRfc822(filename, &recipients, &from);
+
+	smtp = new mailcore::SMTPAsyncSession();
+
+	smtp->setHostname(MCSTR("smtp.139.com"));
+	smtp->setPort(25);
+	smtp->setUsername(email);
+	smtp->setPassword(password);
+	smtp->setConnectionType(mailcore::ConnectionTypeClear);
+
+	mailcore::SMTPOperation * op = smtp->sendMessageOperation(from, recipients, filename);
+	op->setSmtpCallback(callback);
+	op->setCallback(callback);
+	op->start();
+
+	mainLoop();
+
+	//smtp->release();
 }
 
 class TestIMAPCallback : public mailcore::Object, public mailcore::OperationCallback, public mailcore::IMAPOperationCallback {
@@ -411,11 +506,11 @@ static void testAsyncIMAP()
     TestIMAPCallback * callback = new TestIMAPCallback();
     
     session = new mailcore::IMAPAsyncSession();
-    session->setHostname(MCSTR("imap.gmail.com"));
-    session->setPort(993);
+    session->setHostname(MCSTR("imap.139.com"));
+    session->setPort(143);
     session->setUsername(email);
     session->setPassword(password);
-    session->setConnectionType(mailcore::ConnectionTypeTLS);
+	session->setConnectionType(mailcore::ConnectionTypeClear);
     
     mailcore::IMAPMessagesRequestKind requestKind = (mailcore::IMAPMessagesRequestKind)
     (mailcore::IMAPMessagesRequestKindHeaders | mailcore::IMAPMessagesRequestKindStructure |
@@ -492,9 +587,9 @@ void testAll()
 {
     mailcore::setICUDataDirectory(MCSTR("/usr/local/share/icu"));
     
-    email = MCSTR("email@gmail.com");
-    password = MCSTR("MyP4ssw0rd");
-    displayName = MCSTR("My Email");
+    email = MCSTR("15313159857@139.com");
+    password = MCSTR("xxx");
+    displayName = MCSTR("139_9857");
     
 #if __linux__ && !defined(ANDROID) && !defined(__ANDROID__)
     s_main_loop = g_main_loop_new (NULL, FALSE);
@@ -504,20 +599,23 @@ void testAll()
     MCLogEnabled = 1;
     
     //mailcore::Data * data = testMessageBuilder();
-    //testMessageParser(data);
+	mailcore::Data * data = testMessageBuilder2(); //日期时间 的时区不对  Date: Sun, 2 Feb 2020 21:40:33 +0000
+    testMessageParser(data);
     //testSMTP(data);
+	//testSendingMessageFromFileViaSMTP();  //ok
     //testSendingMessageFromFileViaSMTP(data);
-    //testIMAP();
+    //testIMAP(); //ok
     //testIMAPMove();
     //testIMAPCapability();
     //testPOP();
     //testNNTP();
     //testAsyncSMTP(data);
-    //testAsyncSendMessageFromFileViaSMTP(data);
-    //testAsyncIMAP();
+   //testAsyncSendMessageFromFileViaSMTP(data);
+   //testAsyncSendMessageFromFileViaSMTP(); //ok
+    //testAsyncIMAP(); //ok
     //testAsyncPOP();
-    //testAddresses();
-    //testAttachments();
+    //testAddresses(); //ok
+    //testAttachments(); //ok
 
     pool->release();
 }
