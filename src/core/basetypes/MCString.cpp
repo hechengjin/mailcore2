@@ -1,4 +1,4 @@
-#include "MCWin32.h" // should be included first.
+﻿#include "MCWin32.h" // should be included first.
 
 #include "MCString.h"
 
@@ -575,7 +575,7 @@ static inline int skip_subj_refwd(char * subj, size_t * begin,
     
     if (!has_suffix) {
         if (length - cur_token >= 3) {
-			if (strncasecmp(subj + cur_token, ":", 3) == 0) {
+            if (strncasecmp(subj + cur_token, "：", 3) == 0) {
                 cur_token += 3;
                 has_suffix = 1;
             }
@@ -1755,7 +1755,7 @@ static void returnToLineAtBeginningOfBlock(struct parserState * state)
 static Set * blockElements(void)
 {
     static Set * elements = NULL;
-    MC_LOCK_TYPE lock = MC_LOCK_INITIAL_VALUE;
+    static MC_LOCK_TYPE lock = MC_LOCK_INITIAL_VALUE;
     
     MC_LOCK(&lock);
     if (elements == NULL) {

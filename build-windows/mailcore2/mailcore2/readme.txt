@@ -20,3 +20,7 @@ mailcore2\build-windows\build_headers.bat
 #define PTHREAD_H
 下面加上
 #define HAVE_STRUCT_TIMESPEC
+
+常量中有换行符
+文件->xx文件另存为 -> 编码保存
+Unicode(UTF-8带签名)-代码页 65001
