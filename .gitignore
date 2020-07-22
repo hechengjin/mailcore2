@@ -23,7 +23,7 @@ DerivedData
 *.hmap
 *.xcuserstate
 *.xccheckout
-
+.vs/
 #CocoaPods
 Pods
 Podfile.lock
