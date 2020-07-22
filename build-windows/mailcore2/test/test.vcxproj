@@ -27,26 +27,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -103,7 +103,12 @@ xcopy /e /r /y ..\..\..\Externals\dll\x86\PTHREADVC2.DLL $(OutDir)
 xcopy /e /r /y ..\..\..\Externals\lib\LIBSASL2.lib $(OutDir)
 xcopy /e /r /y ..\..\..\Externals\lib\SSLEAY32MD.lib $(OutDir)
 xcopy /e /r /y ..\..\..\Externals\bin\SSLEAY32MD.dll $(OutDir)
-xcopy /e /r /y ..\..\..\Externals\lib\zlib.dll $(OutDir)</Command>
+xcopy /e /r /y ..\..\..\Externals\lib\zlib.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\bin\icuin54.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\bin\icuuc54.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\lib\libsasl2.dll $(OutDir)
+xcopy /e /r /y ..\..\..\Externals\bin\icudt54.dll $(OutDir)
+</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

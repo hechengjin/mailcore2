@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mailcore2", "mailcore2\mailcore2.vcxproj", "{AAD35E01-77E4-43CB-BBB4-F7F6692EA829}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -50,5 +50,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		Qt5Version = Qt5.12.0_msvc2017
+		SolutionGuid = {4264BF67-A475-4CA8-8E8E-EE726A44C9F7}
 	EndGlobalSection
 EndGlobal

@@ -196,8 +196,11 @@ static void testIMAP()
     (mailcore::IMAPMessagesRequestKindHeaders | mailcore::IMAPMessagesRequestKindStructure |
      mailcore::IMAPMessagesRequestKindInternalDate | mailcore::IMAPMessagesRequestKindHeaderSubject |
      mailcore::IMAPMessagesRequestKindFlags);
-    mailcore::Array * messages = session->fetchMessagesByUID(MCSTR("INBOX"),
-                                                             requestKind, mailcore::IndexSet::indexSetWithRange(mailcore::RangeMake(1, UINT64_MAX)), NULL, &error);
+    //mailcore::Array * messages = session->fetchMessagesByUID(MCSTR("INBOX"),
+    //                                                         requestKind, mailcore::IndexSet::indexSetWithRange(mailcore::RangeMake(1, UINT64_MAX)), NULL, &error);
+	mailcore::Array* messages = session->fetchMessagesByNumber(MCSTR("INBOX"),
+		requestKind, mailcore::IndexSet::indexSetWithRange(mailcore::RangeMake(0, 3)), NULL, &error);
+    
     MCLog("%s", MCUTF8DESC(messages));
     
     session->release();
@@ -599,12 +602,12 @@ void testAll()
     MCLogEnabled = 1;
     
     //mailcore::Data * data = testMessageBuilder();
-	mailcore::Data * data = testMessageBuilder2(); //日期时间 的时区不对  Date: Sun, 2 Feb 2020 21:40:33 +0000
-    testMessageParser(data);
+	//mailcore::Data * data = testMessageBuilder2(); //日期时间 的时区不对  Date: Sun, 2 Feb 2020 21:40:33 +0000
+    //testMessageParser(data);
     //testSMTP(data);
 	//testSendingMessageFromFileViaSMTP();  //ok
     //testSendingMessageFromFileViaSMTP(data);
-    //testIMAP(); //ok
+    testIMAP(); //ok
     //testIMAPMove();
     //testIMAPCapability();
     //testPOP();
@@ -616,6 +619,10 @@ void testAll()
     //testAsyncPOP();
     //testAddresses(); //ok
     //testAttachments(); //ok
+
+    //char* subject = "=?utf-8?B?5ZKM6YCa6KGM6K+BLeWvhueggeWPmOabtA==?=";
+    //mailcore::String strSub = mailcore::String::stringByDecodingMIMEHeaderValue(subject);
+
 
     pool->release();
 }
