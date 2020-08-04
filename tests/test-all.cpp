@@ -196,17 +196,20 @@ static void testIMAP_GMAIL()
 	mailcore::ErrorCode error;
 
 	session = new mailcore::IMAPSession();
-	session->setHostname(MCSTR("imap.googlemail.com")); // imap.gmail.com
+	session->setHostname(MCSTR("imap.gmail.com")); //imap.googlemail.com imap.gmail.com
 	session->setPort(993);
 	session->setUsername(email);
 	session->setPassword(password);
 	session->setConnectionType(mailcore::ConnectionTypeTLS);
-    session->setOAuth2Token(MCSTR("dXNlcj1oZWNoZW5namluQGdtYWlsLmNvbQFhdXRoPUJlYXJlciB5YTI5LmEwQWZINlNNQXFlejU3T19RSWZsSTFIejBBeW9mdmJZcl9CRmd6SFduV0s3bmkwdEY1dVpvMjZPWnFKTFFQbmZOYXVIMC1PMVhodXMtMnJqbEdFa2hKTTl3VTMzclNTWE5oRGk5UVZLVmdqdWxmS0lzRllINDV4a1oyd0VYazhaY2h0dFdMS0IzbWk5bEY2TlZoazNLTUJLWUtjdGJUUENlWnAzSQEB"));
-    session->setAuthType(mailcore::AuthTypeXOAuth2);
-    
-    mailcore::Array* folders = session->fetchAllFolders(&error);
+	session->setOAuth2Token(MCSTR("ya29.a0AfH6SMCxVYTpn8D7EvWdFAdyYIMtjBX9oZnVARgsLZswF2S5z5vf1pMPYHYZWFK6pY64zJhmrswAYoIMECtjH4mQOd66jE_9K1cZuX3Rt3KYsuzdgeQlDv2FX-Lr58peaOWdMgVD-kUgZymmgGISEjUDnvWQo5PRKfE"));
+	session->setAuthType(mailcore::AuthTypeXOAuth2);
 
-	MCLog("%s", MCUTF8DESC(folders));
+	session->connect(&error);
+	session->login(&error);
+	session->select(MCSTR("INBOX"), &error);
+	mailcore::IMAPFolderStatus* fs = session->folderStatus(MCSTR("INBOX"), &error);
+	MCLog("%d", fs->unseenCount());
+
 	session->release();
 
 }
@@ -226,10 +229,14 @@ static void testIMAP_139()
 	session->setUsername(email);
 	session->setPassword(password);
 	session->setConnectionType(mailcore::ConnectionTypeClear);
-
+	//选择邮件夹
+    session->connect(&error);
+    session->login(&error);
+	session->select(MCSTR("INBOX"), &error);
+	mailcore::IMAPFolderStatus* fs = session->folderStatus(MCSTR("INBOX"), &error);
+    MCLog("%d", fs->unseenCount());
 	mailcore::Array* folders = session->fetchAllFolders(&error);
-
-	 MCLog("%s", MCUTF8DESC(folders));
+   //MCLog("%s", MCUTF8DESC(folders));
 
 	session->release();
 
@@ -656,8 +663,8 @@ void testAll()
     mailcore::AutoreleasePool * pool = new mailcore::AutoreleasePool();
     MCLogEnabled = 1;
     //mailstream_debug = 1;
-    testIMAP_GMAIL();
-    //testIMAP_139();
+    //testIMAP_GMAIL();
+    testIMAP_139();
     
     //mailcore::Data * data = testMessageBuilder();
 	//mailcore::Data * data = testMessageBuilder2(); //日期时间 的时区不对  Date: Sun, 2 Feb 2020 21:40:33 +0000
