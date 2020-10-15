@@ -650,6 +650,7 @@ static void testAttachments()
 
 void testAll()
 {
+    
     mailcore::setICUDataDirectory(MCSTR("/usr/local/share/icu"));
     
     email = MCSTR("15313159857@139.com");
@@ -664,7 +665,9 @@ void testAll()
     MCLogEnabled = 1;
     //mailstream_debug = 1;
     //testIMAP_GMAIL();
-    testIMAP_139();
+    //testIMAP_139();
+    //MCLog("test");
+    
     
     //mailcore::Data * data = testMessageBuilder();
 	//mailcore::Data * data = testMessageBuilder2(); //日期时间 的时区不对  Date: Sun, 2 Feb 2020 21:40:33 +0000
